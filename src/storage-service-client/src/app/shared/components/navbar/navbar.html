@@ -1,5 +1,9 @@
-<div>
-  <nav>
-    <mat-slide-toggle>Toggle me</mat-slide-toggle>
-  </nav>
+<div class="navbar__wrapper">
+  <mat-toolbar color="primary" class="navbar">
+    @for (item of navItems; track item.name) {
+      <button mat-button [routerLink]="item.route" class="navbar__button">
+        {{ item.name }}
+      </button>
+    }
+  </mat-toolbar>
 </div>

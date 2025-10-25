@@ -4,9 +4,9 @@ import {Layout} from './shared/components/layout/layout';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Layout],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
 export class App {
 }

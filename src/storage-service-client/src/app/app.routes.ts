@@ -14,7 +14,7 @@ export const routes: Routes = [
       {
         path: 'details',
         loadComponent: () =>
-          import("./features/details/details-list/details-list").then(x => x.DetailsList)
+          import("./pages/details-page/details-page").then(x => x.DetailsPage)
       }
     ]
   },

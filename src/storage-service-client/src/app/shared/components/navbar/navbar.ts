@@ -1,14 +1,23 @@
 import { Component } from '@angular/core';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {MatToolbar} from '@angular/material/toolbar';
+import {MatButton} from '@angular/material/button';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   imports: [
-    MatSlideToggle
+    MatToolbar,
+    MatButton,
+    RouterLink
+
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
 export class Navbar {
-
+  navItems = [
+    { name: 'Details', route: '/details' },
+    { name: 'Storekeepers', route: '/storekeepers' }
+  ];
 }
