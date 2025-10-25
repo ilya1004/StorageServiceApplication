@@ -1,1 +1,86 @@
-<p>create-detail-popup works!</p>
+<h1 mat-dialog-title>Создать новую деталь</h1>
+<div mat-dialog-content>
+  <form [formGroup]="detailForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nomenclature code</mat-label>
+      <input matInput formControlName="nomenclatureCode" required>
+      @if (detailForm.get('nomenclatureCode')?.hasError('required')) {
+        <mat-error>
+          Nomenclature code is required
+        </mat-error>
+      } @else if (detailForm.get('nomenclatureCode')?.hasError('minlength')) {
+        <mat-error>
+          Nomenclature code must be at least 2 characters long
+        </mat-error>
+      } @else if (detailForm.get('nomenclatureCode')?.hasError('maxlength')) {
+        <mat-error>
+          Nomenclature code cannot exceed 200 characters
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      @if (detailForm.get('name')?.hasError('required')) {
+        <mat-error>
+          Name is required
+        </mat-error>
+      } @else if (detailForm.get('name')?.hasError('minlength')) {
+        <mat-error>
+          Name must be at least 2 characters long
+        </mat-error>
+      } @else if (detailForm.get('name')?.hasError('maxlength')) {
+        <mat-error>
+          Name cannot exceed 200 characters
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Count</mat-label>
+      <input matInput type="number" formControlName="count" required min="1">
+      @if (detailForm.get('count')?.hasError('required')) {
+        <mat-error>
+          Count is required
+        </mat-error>
+      } @else if (detailForm.get('count')?.hasError('min')) {
+        <mat-error>
+          Count must be greater than 1
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Storekeeper</mat-label>
+      <mat-select formControlName="storekeeperId" required>
+        @for (storekeeper of storekeepers; track storekeeper.id) {
+          <mat-option [value]="storekeeper.id">
+            {{ storekeeper.fullName }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (detailForm.get('storekeeperId')?.hasError('required')) {
+        <mat-error>
+          Storekeeper is required
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Creation date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="createdAtDate" required>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (detailForm.get('createdAtDate')?.hasError('required')) {
+        <mat-error>
+          Creation date is required
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button matButton (click)="onCancel()">Отмена</button>
+  <button matButton="filled" [disabled]="detailForm.invalid" (click)="onSubmit()">Создать</button>
+</div>

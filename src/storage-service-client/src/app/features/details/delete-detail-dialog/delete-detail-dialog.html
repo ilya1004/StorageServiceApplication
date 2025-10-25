@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Confirm</h2>
+<mat-dialog-content class="mat-typography">
+  Are you sure you want to delete this detail?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button matButton="filled" [mat-dialog-close]="true">Delete</button>
+</mat-dialog-actions>

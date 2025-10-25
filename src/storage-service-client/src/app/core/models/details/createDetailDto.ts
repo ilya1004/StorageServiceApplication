@@ -3,4 +3,5 @@ export interface CreateDetailDto {
   name: string;
   count: number;
   storekeeperId: number;
+  createdAtDate: string;
 }
