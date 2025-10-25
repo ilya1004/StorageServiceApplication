@@ -5,7 +5,7 @@ import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '
 import {DetailsService} from '../../../core/services/details-service/details-service';
 import {CreateDetailDto} from '../../../core/models/details/createDetailDto';
 import {StorekeepersService} from '../../../core/services/storekeepers-service/storekeepers-service';
-import {ICreateDetailForm} from './create-detail-popup.form';
+import {ICreateDetailForm} from './create-detail.form';
 import {MatError, MatFormField, MatSuffix} from '@angular/material/form-field';
 import {MatLabel} from '@angular/material/form-field';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Create new storekeeper</h1>
+<div mat-dialog-content>
+  <form [formGroup]="storekeeperForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullName" required>
+      @if (storekeeperForm.get('fullName')?.hasError('required')) {
+        <mat-error>
+          Full name is required
+        </mat-error>
+      } @else if (storekeeperForm.get('fullName')?.hasError('minlength')) {
+        <mat-error>
+          Full name must be at least 2 characters long
+        </mat-error>
+      } @else if (storekeeperForm.get('fullName')?.hasError('maxlength')) {
+        <mat-error>
+          Full name cannot exceed 200 characters
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button matButton (click)="onCancel()">Cancel</button>
+  <button matButton="filled" [disabled]="storekeeperForm.invalid" (click)="onSubmit()">Create</button>
+</div>

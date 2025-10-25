@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Создать новую деталь</h1>
+<h1 mat-dialog-title>Create new detail</h1>
 <div mat-dialog-content>
   <form [formGroup]="detailForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
@@ -81,6 +81,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button matButton (click)="onCancel()">Отмена</button>
-  <button matButton="filled" [disabled]="detailForm.invalid" (click)="onSubmit()">Создать</button>
+  <button matButton (click)="onCancel()">Cancel</button>
+  <button matButton="filled" [disabled]="detailForm.invalid" (click)="onSubmit()">Create</button>
 </div>
