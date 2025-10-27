@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {Detail} from '../../../core/models/details/detail';
 import {
   MatCell, MatCellDef,
@@ -9,7 +9,7 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DetailsService} from '../../../core/services/details-service/details-service';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
@@ -39,24 +39,29 @@ import {DatePipe} from '@angular/common';
   styleUrl: './details-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailsList implements OnInit, AfterViewInit {
+export class DetailsList implements OnInit {
   private readonly detailsService = inject(DetailsService);
   private readonly dialog = inject(MatDialog);
 
-  displayedColumns: string[] = ['id', 'nomenclatureCode', 'name', 'count', 'storekeeper', 'createdAtDate', 'actions'];
+  readonly displayedColumns: string[] = ['id', 'nomenclatureCode', 'name', 'count', 'storekeeper', 'createdAtDate', 'actions'];
 
-  details = new MatTableDataSource<Detail>([]);
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  pageIndex = signal<number>(0);
+  pageSize = signal<number>(5);
+  totalCount = signal<number>(0);
+  details =
+    signal<MatTableDataSource<Detail>>(new MatTableDataSource<Detail>());
 
   ngOnInit(): void {
     this.loadDetails();
   }
 
   loadDetails(): void {
-    this.detailsService.getAll().subscribe({
-      next: (details) => {
-        this.details = new MatTableDataSource(details);
+    this.detailsService.getPaginated({pageNo: this.pageIndex() + 1, pageSize: this.pageSize() }).subscribe({
+      next: (paginatedResult) => {
+        this.details.set(new MatTableDataSource(paginatedResult.items));
+        this.pageIndex.set(paginatedResult.pageNo - 1);
+        this.pageSize.set(paginatedResult.pageSize);
+        this.totalCount.set(paginatedResult.totalCount);
       },
       error: (err) => {
         console.error(err)
@@ -64,8 +69,11 @@ export class DetailsList implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-    this.details.paginator = this.paginator;
+  onPageChange(pageEvent: PageEvent) {
+    this.pageSize.set(pageEvent.pageSize);
+    this.pageIndex.set(pageEvent.pageIndex);
+    this.totalCount.set(pageEvent.length);
+    this.loadDetails();
   }
 
   onDeleteItemClick(id: number): void {

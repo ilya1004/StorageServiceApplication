@@ -67,7 +67,7 @@ export class CreateDetailPopup implements OnInit {
   });
 
   ngOnInit(): void {
-    this.storekeepersService.getAll().subscribe({
+    this.storekeepersService.getAll("lookup").subscribe({
       next: (storekeepers) => {
         this.storekeepers = storekeepers;
       },

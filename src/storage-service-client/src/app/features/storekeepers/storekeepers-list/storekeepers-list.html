@@ -1,5 +1,5 @@
 <div class="storekeepers-table__wrapper">
-  <table mat-table [dataSource]="storekeepers" class="storekeepers-table">
+  <table mat-table [dataSource]="storekeepers()" class="storekeepers-table">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
@@ -27,6 +27,10 @@
 <div class="pagination__wrapper">
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"
+    [length]="totalCount()"
+    [pageSize]="pageSize()"
+    [pageIndex]="pageIndex()"
+    (page)="onPageChange($event)"
     showFirstLastButtons
     aria-label="Select page">
   </mat-paginator>
