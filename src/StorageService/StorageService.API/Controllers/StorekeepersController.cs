@@ -25,7 +25,7 @@ public class StorekeepersController : ControllerBase
     public async Task<ActionResult<StorekeeperCoreDto>> Create([FromBody] CreateStorekeeperDto createStorekeeperDto)
     {
         var result = await _sender.Send(
-            new CreateStorekeeperCommand(createStorekeeperDto.Name),
+            new CreateStorekeeperCommand(createStorekeeperDto.FullName),
             HttpContext.RequestAborted);
 
         return Ok(result);

@@ -1,4 +1,5 @@
 using StorageService.API;
+using StorageService.API.Middlewares;
 using StorageService.Application;
 using StorageService.Domain.Abstractions.Services;
 using StorageService.Infrastructure;
@@ -26,6 +27,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("AngularClientPolicy");
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 using (var scope = app.Services.CreateScope())
 {
