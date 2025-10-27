@@ -16,7 +16,6 @@ import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteDetailDialog} from '../delete-detail-dialog/delete-detail-dialog';
 import {DatePipe} from '@angular/common';
-import {ErrorResult} from '../../../core/models/common/error-result';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpErrorResponse} from '@angular/common/http';
 
