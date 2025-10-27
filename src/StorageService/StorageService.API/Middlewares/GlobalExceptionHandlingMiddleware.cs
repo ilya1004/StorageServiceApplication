@@ -18,22 +18,41 @@ public class GlobalExceptionHandlingMiddleware : IMiddleware
             {
                 BadRequestException => StatusCodes.Status400BadRequest,
                 AlreadyExistsException => StatusCodes.Status400BadRequest,
+                ValidationFailedException => StatusCodes.Status400BadRequest,
                 NotFoundException => StatusCodes.Status404NotFound,
                 _ => StatusCodes.Status500InternalServerError
             };
-            var details = new ProblemDetails
+
+            var problemDetails = ex switch
             {
-                Title = statusCode == StatusCodes.Status500InternalServerError ? "Internal Server Error" : "Error",
-                Type = ex.GetType().Name,
-                Status = statusCode,
-                Detail = ex.Message,
-                Instance = context.Request.Path
+                ValidationFailedException validationEx => new HttpValidationProblemDetails
+                {
+                    Title = "Error",
+                    Type = ex.GetType().Name,
+                    Errors = validationEx.Failures
+                        .GroupBy(f => f.PropertyName)
+                        .ToDictionary(
+                            g => g.Key,
+                            g => g.Select(x => x.ErrorMessage).ToArray()
+                        ),
+                    Status = statusCode,
+                    Instance = context.Request.Path
+                },
+
+                _ => new ProblemDetails
+                {
+                    Title = statusCode == StatusCodes.Status500InternalServerError ? "Internal Server Error" : "Error",
+                    Type = ex.GetType().Name,
+                    Status = statusCode,
+                    Detail = ex.Message,
+                    Instance = context.Request.Path
+                }
             };
 
             context.Response.StatusCode = statusCode;
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = "application/problem+json";
 
-            var json = JsonSerializer.Serialize(details);
+            var json = JsonSerializer.Serialize(problemDetails);
 
             await context.Response.WriteAsync(json);
         }

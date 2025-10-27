@@ -1,4 +1,4 @@
-﻿namespace StorageService.Application.Details.Dtos;
+﻿namespace StorageService.API.RequestDtos.Input;
 
 public record CreateDetailDto
 {
@@ -6,4 +6,5 @@ public record CreateDetailDto
     public string Name { get; set; }
     public int Count { get; set; }
     public int StorekeeperId { get; set; }
+    public DateTime CreatedAtDate { get; set; }
 }

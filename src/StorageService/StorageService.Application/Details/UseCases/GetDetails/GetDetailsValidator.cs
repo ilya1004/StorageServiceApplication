@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace StorageService.Application.Details.UseCases.GetDetail;
+namespace StorageService.Application.Details.UseCases.GetDetails;
 
 public class GetDetailsValidator : AbstractValidator<GetDetailsQuery>
 {

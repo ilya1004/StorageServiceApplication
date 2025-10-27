@@ -1,3 +1,9 @@
 ﻿namespace StorageService.Application.Exceptions;
 
-public class NotFoundException(string message) : Exception(message);
+[Serializable]
+public class NotFoundException : Exception
+{
+    public NotFoundException(string message) : base(message)
+    {
+    }
+}

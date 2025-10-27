@@ -1,5 +1,6 @@
 using StorageService.API;
 using StorageService.Application;
+using StorageService.Domain.Abstractions.Services;
 using StorageService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,28 @@ services.AddInfrastructure(builder.Configuration);
 
 services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AngularClientPolicy", policyBuilder =>
+    {
+        policyBuilder.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AngularClientPolicy");
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbStartupService = scope.ServiceProvider.GetRequiredService<IDbStartupService>();
+
+    await dbStartupService.MakeMigrationsAsync();
+    await dbStartupService.SeedDataAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,3 +1,9 @@
 ﻿namespace StorageService.Application.Exceptions;
 
-public class BadRequestException(string message) : Exception(message);
+[Serializable]
+public class BadRequestException : Exception
+{
+    public BadRequestException(string message) : base(message)
+    {
+    }
+}

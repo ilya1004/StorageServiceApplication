@@ -4,7 +4,7 @@ using StorageService.Application.Details.Dtos;
 using StorageService.Domain.Abstractions.Data;
 using StorageService.Domain.Models;
 
-namespace StorageService.Application.Details.UseCases.GetDetail;
+namespace StorageService.Application.Details.UseCases.GetDetails;
 
 public class GetDetailsRequest : IRequestHandler<GetDetailsQuery, PaginatedResultModel<DetailCoreDto>>
 {

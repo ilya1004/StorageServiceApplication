@@ -1,3 +1,9 @@
 ﻿namespace StorageService.Application.Exceptions;
 
-public class AlreadyExistsException(string message) : Exception(message);
+[Serializable]
+public class AlreadyExistsException : Exception
+{
+    public AlreadyExistsException(string message) : base(message)
+    {
+    }
+}
