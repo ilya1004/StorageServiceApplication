@@ -13,33 +13,33 @@ export class DetailsService {
   apiService: ApiService = inject(ApiService);
 
   getAll() : Observable<Detail[]> {
-    // return this.apiService.get<Detail[]>(this.endpoint);
-    const details: Detail[] = [
-      {
-        id: 1,
-        nomenclatureCode: 'NC001',
-        name: 'Деталь 1',
-        count: 10,
-        storekeeperId: 1,
-        storekeeper: { id: 1, fullName: 'Иван Иванов' },
-        isDeleted: false,
-        createdAtDate: '2025-10-25',
-        deletedAtDate: null
-      },
-      {
-        id: 2,
-        nomenclatureCode: 'NC002',
-        name: 'Деталь 2',
-        count: 20,
-        storekeeperId: 2,
-        storekeeper: { id: 2, fullName: 'Мария Петрова' },
-        isDeleted: false,
-        createdAtDate: '2025-10-24',
-        deletedAtDate: null
-      }
-    ]
-
-    return of(details);
+    return this.apiService.get<Detail[]>(this.endpoint);
+    // const details: Detail[] = [
+    //   {
+    //     id: 1,
+    //     nomenclatureCode: 'NC001',
+    //     name: 'Деталь 1',
+    //     count: 10,
+    //     storekeeperId: 1,
+    //     storekeeper: { id: 1, fullName: 'Иван Иванов' },
+    //     isDeleted: false,
+    //     createdAtDate: '2025-10-25',
+    //     deletedAtDate: null
+    //   },
+    //   {
+    //     id: 2,
+    //     nomenclatureCode: 'NC002',
+    //     name: 'Деталь 2',
+    //     count: 20,
+    //     storekeeperId: 2,
+    //     storekeeper: { id: 2, fullName: 'Мария Петрова' },
+    //     isDeleted: false,
+    //     createdAtDate: '2025-10-24',
+    //     deletedAtDate: null
+    //   }
+    // ]
+    //
+    // return of(details);
   }
 
   create(createDetailDto: CreateDetailDto) : Observable<Detail> {
@@ -47,6 +47,6 @@ export class DetailsService {
   }
 
   delete(id: number) : Observable<void> {
-    return this.apiService.delete<void>(this.endpoint);
+    return this.apiService.delete<void>(`${this.endpoint}/${id}`);
   }
 }

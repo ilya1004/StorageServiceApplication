@@ -1,1 +1,47 @@
 
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: mssql
+    environment:
+      SA_PASSWORD: "Password123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - storage-network
+
+  storage-service:
+    build:
+      context: ./src/StorageService
+      dockerfile: Dockerfile
+    container_name: storage-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    depends_on:
+      - mssql
+    ports:
+      - "8080:8080"
+    networks:
+      - storage-network
+
+  storage-client:
+    build:
+      context: ./src/storage-service-client
+      dockerfile: Dockerfile
+    container_name: storage-client
+    ports:
+      - "4200:80"
+    depends_on:
+      - storage-service
+    networks:
+      - storage-network
+
+networks:
+  storage-network:
+
+volumes:
+  sql_data:
