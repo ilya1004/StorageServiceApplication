@@ -16,6 +16,9 @@ import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteDetailDialog} from '../delete-detail-dialog/delete-detail-dialog';
 import {DatePipe} from '@angular/common';
+import {ErrorResult} from '../../../core/models/common/error-result';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-details-list',
@@ -42,6 +45,7 @@ import {DatePipe} from '@angular/common';
 export class DetailsList implements OnInit {
   private readonly detailsService = inject(DetailsService);
   private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly displayedColumns: string[] = ['id', 'nomenclatureCode', 'name', 'count', 'storekeeper', 'createdAtDate', 'actions'];
 
@@ -63,8 +67,8 @@ export class DetailsList implements OnInit {
         this.pageSize.set(paginatedResult.pageSize);
         this.totalCount.set(paginatedResult.totalCount);
       },
-      error: (err) => {
-        console.error(err)
+      error: (err: HttpErrorResponse) => {
+        this.showError(err.error.detail || 'An error occurred while retrieving details');
       }
     })
   }
@@ -85,11 +89,20 @@ export class DetailsList implements OnInit {
           next: () => {
             this.loadDetails();
           },
-          error: (err) => {
-            console.error(err);
+          error: (err: HttpErrorResponse) => {
+            this.showError(err.error.detail || 'An error occurred while deleting the detail');
           }
         })
       }
     })
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar']
+    });
   }
 }

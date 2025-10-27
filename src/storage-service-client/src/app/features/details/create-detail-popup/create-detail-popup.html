@@ -54,7 +54,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Storekeeper</mat-label>
       <mat-select formControlName="storekeeperId" required>
-        @for (storekeeper of storekeepers; track storekeeper.id) {
+        @for (storekeeper of storekeepers(); track storekeeper.id) {
           <mat-option [value]="storekeeper.id">
             {{ storekeeper.fullName }}
           </mat-option>

@@ -15,6 +15,8 @@ import {StorekeepersService} from '../../../core/services/storekeepers-service/s
 import {MatDialog} from '@angular/material/dialog';
 import {Storekeeper} from '../../../core/models/storekeepers/storekeeper';
 import {DeleteStorekeeperDialog} from '../delete-storekeeper-dialog/delete-storekeeper-dialog';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-storekeepers-list',
@@ -40,6 +42,7 @@ import {DeleteStorekeeperDialog} from '../delete-storekeeper-dialog/delete-store
 export class StorekeepersList implements OnInit {
   private readonly storekeepersService = inject(StorekeepersService);
   private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly displayedColumns: string[] = ['id', 'fullName', 'actions'];
 
@@ -62,8 +65,8 @@ export class StorekeepersList implements OnInit {
           this.pageSize.set(paginatedResult.pageSize);
           this.totalCount.set(paginatedResult.totalCount);
         },
-        error: (err) => {
-          console.error(err)
+        error: (err: HttpErrorResponse) => {
+          this.showError(err.error.detail || 'An error occurred while retrieving storekeepers');
         }
       })
   }
@@ -84,11 +87,20 @@ export class StorekeepersList implements OnInit {
           next: () => {
             this.loadStorekeepers();
           },
-          error: (err) => {
-            console.error(err);
+          error: (err: HttpErrorResponse) => {
+            this.showError(err.error.detail || 'An error occurred while deleting the storekeeper');
           }
         })
       }
     })
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar']
+    });
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Storekeeper} from '../../../core/models/storekeepers/storekeeper';
 import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
@@ -12,6 +12,9 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatButton} from '@angular/material/button';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ErrorResult} from '../../../core/models/common/error-result';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-create-detail-popup',
@@ -40,8 +43,9 @@ export class CreateDetailPopup implements OnInit {
   private readonly dialogRef: MatDialogRef<CreateDetailPopup> = inject(MatDialogRef<CreateDetailPopup>)
   private readonly detailsService = inject(DetailsService)
   private readonly storekeepersService = inject(StorekeepersService)
+  private readonly snackBar = inject(MatSnackBar);
 
-  storekeepers: Storekeeper[] = [];
+  storekeepers = signal<Storekeeper[]>([]);
 
   detailForm = new FormGroup<ICreateDetailForm>({
     nomenclatureCode: new FormControl('', {
@@ -69,10 +73,10 @@ export class CreateDetailPopup implements OnInit {
   ngOnInit(): void {
     this.storekeepersService.getAll("lookup").subscribe({
       next: (storekeepers) => {
-        this.storekeepers = storekeepers;
+        this.storekeepers.set(storekeepers);
       },
-      error: (err) => {
-        console.error(err);
+      error: (err: HttpErrorResponse) => {
+        this.showError(err.error.detail || 'An error occurred while retrieving storekeepers');
       }
     });
   }
@@ -92,8 +96,8 @@ export class CreateDetailPopup implements OnInit {
         next: (detail) => {
           this.dialogRef.close(detail);
         },
-        error: (err) => {
-          console.error(err);
+        error: (err: HttpErrorResponse) => {
+          this.showError(err.error.detail || 'An error occurred while creating the detail');
         }
       });
     }
@@ -101,5 +105,14 @@ export class CreateDetailPopup implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar']
+    });
   }
 }

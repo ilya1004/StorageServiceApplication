@@ -7,6 +7,8 @@ import { CreateStorekeeperDto } from '../../../core/models/storekeepers/createSt
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput, MatLabel } from '@angular/material/input';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-storekeeper-popup',
@@ -28,6 +30,7 @@ import { MatInput, MatLabel } from '@angular/material/input';
 export class CreateStorekeeperPopup {
   private readonly dialogRef: MatDialogRef<CreateStorekeeperPopup> = inject(MatDialogRef<CreateStorekeeperPopup>)
   private readonly storekeepersService = inject(StorekeepersService)
+  private readonly snackBar = inject(MatSnackBar);
 
   storekeeperForm = new FormGroup<ICreateStorekeeperForm>({
     fullName: new FormControl('', {
@@ -47,8 +50,8 @@ export class CreateStorekeeperPopup {
         next: (storekeeper) => {
           this.dialogRef.close(storekeeper);
         },
-        error: (err) => {
-          console.error(err);
+        error: (err: HttpErrorResponse) => {
+          this.showError(err.error.detail || 'An error occurred while deleting the detail');
         }
       });
     }
@@ -56,5 +59,14 @@ export class CreateStorekeeperPopup {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['error-snackbar']
+    });
   }
 }
