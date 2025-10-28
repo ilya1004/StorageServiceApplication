@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {ApiService} from '../api-service';
 import {Observable} from 'rxjs';
 import {Storekeeper} from '../../models/storekeepers/storekeeper';
-import {CreateStorekeeperDto} from '../../models/storekeepers/createStorekeeperDto';
+import {CreateStorekeeperDto} from '../../models/storekeepers/create-storekeeper-dto';
 import { HttpParams } from '@angular/common/http';
 import {PaginatedResult} from '../../models/common/paginated-result';
 

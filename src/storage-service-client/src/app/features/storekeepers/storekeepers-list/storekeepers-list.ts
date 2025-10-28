@@ -44,7 +44,7 @@ export class StorekeepersList implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
-  readonly displayedColumns: string[] = ['id', 'fullName', 'actions'];
+  readonly displayedColumns: string[] = ['id', 'fullName', 'detailsCount', 'actions'];
 
   pageIndex = signal<number>(0);
   pageSize = signal<number>(5);

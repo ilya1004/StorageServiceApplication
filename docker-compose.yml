@@ -34,6 +34,8 @@ services:
       - "8080:8080"
     networks:
       - storage-network
+    volumes:
+      - logs:/app/logs
 
   storage-client:
     build:
@@ -52,3 +54,4 @@ networks:
 
 volumes:
   sql_data:
+  logs:

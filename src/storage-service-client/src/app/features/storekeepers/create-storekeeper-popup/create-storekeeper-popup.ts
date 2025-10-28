@@ -3,7 +3,7 @@ import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from
 import { StorekeepersService } from '../../../core/services/storekeepers-service/storekeepers-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ICreateStorekeeperForm } from './create-storekeeper.form';
-import { CreateStorekeeperDto } from '../../../core/models/storekeepers/createStorekeeperDto';
+import { CreateStorekeeperDto } from '../../../core/models/storekeepers/create-storekeeper-dto';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput, MatLabel } from '@angular/material/input';

@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {ApiService} from '../api-service';
 import {Observable} from 'rxjs';
 import {Detail} from '../../models/details/detail';
-import {CreateDetailDto} from '../../models/details/createDetailDto';
+import {CreateDetailDto} from '../../models/details/create-detail-dto';
 import {HttpParams} from '@angular/common/http';
 import {PaginatedResult} from '../../models/common/paginated-result';
 

@@ -3,7 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Storekeeper} from '../../../core/models/storekeepers/storekeeper';
 import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import {DetailsService} from '../../../core/services/details-service/details-service';
-import {CreateDetailDto} from '../../../core/models/details/createDetailDto';
+import {CreateDetailDto} from '../../../core/models/details/create-detail-dto';
 import {StorekeepersService} from '../../../core/services/storekeepers-service/storekeepers-service';
 import {ICreateDetailForm} from './create-detail.form';
 import {MatError, MatFormField, MatSuffix} from '@angular/material/form-field';
