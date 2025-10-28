@@ -28,7 +28,7 @@ public class GetStorekeepersHandler
             {
                 Id = x.Id,
                 DetailsCount = x.Details
-                    .Where(d => d.StorekeeperId == x.Id)
+                    .Where(d => d.StorekeeperId == x.Id && !d.IsDeleted)
                     .Sum(d => d.Count),
                 FullName = x.FullName,
             },
