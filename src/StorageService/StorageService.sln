@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService.Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService.Infrastructure", "StorageService.Infrastructure\StorageService.Infrastructure.csproj", "{02F648FB-6E48-4D5D-B011-2F1CDD57FA1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService.Tests", "StorageService.Tests\StorageService.Tests.csproj", "{0E295431-EB93-4B3B-AE8C-FE9C125909A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{02F648FB-6E48-4D5D-B011-2F1CDD57FA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02F648FB-6E48-4D5D-B011-2F1CDD57FA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02F648FB-6E48-4D5D-B011-2F1CDD57FA1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E295431-EB93-4B3B-AE8C-FE9C125909A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E295431-EB93-4B3B-AE8C-FE9C125909A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E295431-EB93-4B3B-AE8C-FE9C125909A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E295431-EB93-4B3B-AE8C-FE9C125909A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

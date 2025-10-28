@@ -46,8 +46,4 @@ public interface IRepository<TEntity> where TEntity : Entity
     Task<bool> AnyAsync(
         Expression<Func<TEntity, bool>>? filter,
         CancellationToken cancellationToken = default);
-
-    // Task<IReadOnlyList<TEntity>> GetByFilterAsync(
-    //     ISpecification<TEntity> specification,
-    //     CancellationToken cancellationToken = default);
 }

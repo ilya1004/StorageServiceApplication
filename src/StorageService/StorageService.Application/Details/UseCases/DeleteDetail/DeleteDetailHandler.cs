@@ -4,11 +4,11 @@ using StorageService.Domain.Abstractions.Data;
 
 namespace StorageService.Application.Details.UseCases.DeleteDetail;
 
-public class DeleteDetailRequest : IRequestHandler<DeleteDetailCommand>
+public class DeleteDetailHandler : IRequestHandler<DeleteDetailCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteDetailRequest(IUnitOfWork unitOfWork)
+    public DeleteDetailHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

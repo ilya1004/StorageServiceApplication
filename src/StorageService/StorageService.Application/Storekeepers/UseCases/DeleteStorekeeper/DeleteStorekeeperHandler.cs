@@ -4,11 +4,11 @@ using StorageService.Domain.Abstractions.Data;
 
 namespace StorageService.Application.Storekeepers.UseCases.DeleteStorekeeper;
 
-public class DeleteStorekeeperRequest : IRequestHandler<DeleteStorekeeperCommand>
+public class DeleteStorekeeperHandler : IRequestHandler<DeleteStorekeeperCommand>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteStorekeeperRequest(IUnitOfWork unitOfWork)
+    public DeleteStorekeeperHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

@@ -4,11 +4,11 @@ using StorageService.Domain.Abstractions.Data;
 
 namespace StorageService.Application.Storekeepers.UseCases.GetStorekeepersLookup;
 
-public class GetStorekeepersLookupRequest : IRequestHandler<GetStorekeepersLookupQuery, List<StorekeeperCoreDto>>
+public class GetStorekeepersLookupHandler : IRequestHandler<GetStorekeepersLookupQuery, List<StorekeeperCoreDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public GetStorekeepersLookupRequest(IUnitOfWork unitOfWork)
+    public GetStorekeepersLookupHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

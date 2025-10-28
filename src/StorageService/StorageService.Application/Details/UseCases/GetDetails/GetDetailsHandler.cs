@@ -6,12 +6,12 @@ using StorageService.Domain.Models;
 
 namespace StorageService.Application.Details.UseCases.GetDetails;
 
-public class GetDetailsRequest : IRequestHandler<GetDetailsQuery, PaginatedResultModel<DetailCoreDto>>
+public class GetDetailsHandler : IRequestHandler<GetDetailsQuery, PaginatedResultModel<DetailCoreDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetDetailsRequest(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetDetailsHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;

@@ -7,12 +7,12 @@ using StorageService.Domain.Entities;
 
 namespace StorageService.Application.Storekeepers.UseCases.CreateStorekeeper;
 
-public class CreateStorekeeperRequest : IRequestHandler<CreateStorekeeperCommand, StorekeeperCoreDto>
+public class CreateStorekeeperHandler : IRequestHandler<CreateStorekeeperCommand, StorekeeperCoreDto>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CreateStorekeeperRequest(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateStorekeeperHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;

@@ -115,12 +115,4 @@ public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Enti
             ? await _entities.AnyAsync(filter, cancellationToken)
             : await _entities.AnyAsync(cancellationToken);
     }
-
-
-    // public Task<IReadOnlyList<TEntity>> GetByFilterAsync(
-    //     ISpecification<TEntity> specification,
-    //     CancellationToken cancellationToken = default)
-    // {
-    //     throw new NotImplementedException();
-    // }
 }

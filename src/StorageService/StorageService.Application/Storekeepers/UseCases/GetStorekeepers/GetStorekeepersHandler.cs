@@ -5,12 +5,12 @@ using StorageService.Domain.Models;
 
 namespace StorageService.Application.Storekeepers.UseCases.GetStorekeepers;
 
-public class GetStorekeepersRequest
+public class GetStorekeepersHandler
     : IRequestHandler<GetStorekeepersQuery, PaginatedResultModel<StorekeeperWithDetailsCountDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public GetStorekeepersRequest(IUnitOfWork unitOfWork)
+    public GetStorekeepersHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

@@ -7,12 +7,12 @@ using StorageService.Domain.Entities;
 
 namespace StorageService.Application.Details.UseCases.CreateDetail;
 
-public class CreateDetailRequest : IRequestHandler<CreateDetailCommand, DetailCoreDto>
+public class CreateDetailHandler : IRequestHandler<CreateDetailCommand, DetailCoreDto>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CreateDetailRequest(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateDetailHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
