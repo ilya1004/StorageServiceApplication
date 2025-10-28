@@ -15,7 +15,8 @@ public class DeleteDetailHandler : IRequestHandler<DeleteDetailCommand>
 
     public async Task Handle(DeleteDetailCommand request, CancellationToken cancellationToken)
     {
-        var detail = await _unitOfWork.DetailsRepository.GetByIdAsync(request.Id, cancellationToken);
+        var detail = await _unitOfWork.DetailsRepository
+            .FirstOrDefaultAsync(x => x.Id == request.Id && !x.IsDeleted, cancellationToken);
 
         if (detail is null)
         {
@@ -23,6 +24,7 @@ public class DeleteDetailHandler : IRequestHandler<DeleteDetailCommand>
         }
 
         detail.IsDeleted = true;
+        detail.DeletedAtDate = DateTime.UtcNow;
 
         await _unitOfWork.SaveAllAsync(cancellationToken);
     }

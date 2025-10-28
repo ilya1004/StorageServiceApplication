@@ -36,7 +36,7 @@ public class GetStorekeepersHandler
             cancellationToken,
             x => x.Details);
 
-        var count = await _unitOfWork.StorekeepersRepository.CountAsync(null, cancellationToken);
+        var count = await _unitOfWork.StorekeepersRepository.CountAsync(x => !x.IsDeleted, cancellationToken);
 
         return new PaginatedResultModel<StorekeeperWithDetailsCountDto>
         {

@@ -1,6 +1,6 @@
 ﻿namespace StorageService.API.RequestDtos.Input;
 
-public sealed record CreateStorekeeperDto
+public sealed record CreateOrUpdateStorekeeperDto
 {
     public string FullName { get; set; }
 }

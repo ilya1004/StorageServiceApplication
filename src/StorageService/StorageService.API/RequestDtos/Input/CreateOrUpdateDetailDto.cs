@@ -1,6 +1,6 @@
 ﻿namespace StorageService.API.RequestDtos.Input;
 
-public record CreateDetailDto
+public record CreateOrUpdateDetailDto
 {
     public string NomenclatureCode { get; set; }
     public string Name { get; set; }

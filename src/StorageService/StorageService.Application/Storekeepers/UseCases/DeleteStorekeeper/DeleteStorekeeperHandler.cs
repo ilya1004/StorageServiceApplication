@@ -15,7 +15,8 @@ public class DeleteStorekeeperHandler : IRequestHandler<DeleteStorekeeperCommand
 
     public async Task Handle(DeleteStorekeeperCommand request, CancellationToken cancellationToken)
     {
-        var storekeeper = await _unitOfWork.StorekeepersRepository.GetByIdAsync(request.Id, cancellationToken);
+        var storekeeper = await _unitOfWork.StorekeepersRepository
+            .FirstOrDefaultAsync(x => x.Id == request.Id && !x.IsDeleted, cancellationToken);
 
         if (storekeeper is null)
         {
