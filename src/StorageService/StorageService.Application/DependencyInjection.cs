@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using StorageService.Application.Pipelines;
+using StorageService.Application.PipelineBehaviors;
 
 namespace StorageService.Application;
 
@@ -13,6 +13,7 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
         services.AddAutoMapper(config =>

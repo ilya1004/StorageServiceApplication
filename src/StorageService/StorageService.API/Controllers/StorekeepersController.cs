@@ -32,7 +32,7 @@ public class StorekeepersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResultModel<StorekeeperCoreDto>>> GetAllStorekeepersAsync(
+    public async Task<ActionResult<PaginatedResultModel<StorekeeperWithDetailsCountDto>>> GetAllStorekeepersAsync(
         [FromQuery] PaginatedRequestDto requestDto)
     {
         var result = await _sender.Send(

@@ -2,7 +2,7 @@
 using MediatR;
 using StorageService.Application.Exceptions;
 
-namespace StorageService.Application.Pipelines;
+namespace StorageService.Application.PipelineBehaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

@@ -1,3 +1,4 @@
+using Serilog;
 using StorageService.API;
 using StorageService.API.Middlewares;
 using StorageService.Application;
@@ -24,6 +25,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration));
+
 var app = builder.Build();
 
 app.UseCors("AngularClientPolicy");
@@ -44,6 +48,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+
 app.MapControllers();
 
 app.Run();
+
+Log.CloseAndFlush();

@@ -19,5 +19,6 @@ RUN dotnet publish "./StorageService.API.csproj" -c $BUILD_CONFIGURATION -o /app
 
 FROM base AS final
 WORKDIR /app
+RUN mkdir -p /app/logs
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "StorageService.API.dll"]
