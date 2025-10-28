@@ -100,7 +100,7 @@ public class DeleteDetailHandlerTests
             Count = 100,
             StorekeeperId = 2,
             IsDeleted = false,
-            CreatedAtDate = new DateTime(2025, 1, 1)
+            CreatedAtDate = new DateTime(2025, 1, 1),
         };
 
         var detailCopy = new Detail
@@ -111,7 +111,7 @@ public class DeleteDetailHandlerTests
             Count = originalDetail.Count,
             StorekeeperId = originalDetail.StorekeeperId,
             IsDeleted = originalDetail.IsDeleted,
-            CreatedAtDate = originalDetail.CreatedAtDate
+            CreatedAtDate = originalDetail.CreatedAtDate,
         };
 
         _unitOfWorkMock
@@ -128,7 +128,7 @@ public class DeleteDetailHandlerTests
 
         // Assert
         detailCopy.Should().BeEquivalentTo(originalDetail, options =>
-            options.Excluding(d => d.IsDeleted));
+            options.Excluding(d => d.IsDeleted).Excluding(d => d.DeletedAtDate));
 
         detailCopy.IsDeleted.Should().BeTrue();
     }
